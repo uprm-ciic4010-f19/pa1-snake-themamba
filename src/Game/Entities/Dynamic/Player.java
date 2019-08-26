@@ -19,7 +19,7 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
-
+    public int score=0;
     public String direction;//is your first name one?
 
     public Player(Handler handler){
@@ -90,6 +90,7 @@ public class Player {
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
+           	score++;
         }
 
         if(!handler.getWorld().body.isEmpty()) {
@@ -115,7 +116,9 @@ public class Player {
 
             }
         }
-
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
+        g.drawString("Score: "+score, 60, 30);
 
     }
 

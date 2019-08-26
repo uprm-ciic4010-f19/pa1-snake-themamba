@@ -34,10 +34,10 @@ public class Player {
     }
 
     public void tick(){
-        moveCounter++;
-        if(moveCounter>=5) {
+        moveCounter++;  
+        if(moveCounter>=8) { //this is where I change the SPEED
             checkCollisionAndMove();
-            moveCounter=0;
+            moveCounter=1; // it was 0 i change it to 1
         }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
             direction="Up";
@@ -57,7 +57,7 @@ public class Player {
         int y = yCoord;
         switch (direction){
             case "Left":
-                if(xCoord==0){
+                if(xCoord==0){ //bregando en esto xCoord==0
                     kill();
                 }else{
                     xCoord--;
@@ -71,7 +71,7 @@ public class Player {
                 }
                 break;
             case "Up":
-                if(yCoord==0){
+                if(yCoord==0){ //bregando en esto yCoord==0
                     kill();
                 }else{
                     yCoord--;
@@ -127,7 +127,7 @@ public class Player {
         switch (direction){
             case "Left":
                 if( handler.getWorld().body.isEmpty()){
-                    if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+                    if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount--){
                         tail = new Tail(this.xCoord+1,this.yCoord,handler);
                     }else{
                         if(this.yCoord!=0){

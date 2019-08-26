@@ -15,7 +15,8 @@ public class DisplayScreen {
     private JFrame frame;
     private Canvas canvas;
     private String title;
-    private int width, height;
+    public  int width;
+	public  int height;
 
     public DisplayScreen(String title, int width, int height){
         this.title = title;

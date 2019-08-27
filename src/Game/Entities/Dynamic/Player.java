@@ -5,6 +5,7 @@ import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+//import java.lang.Math; 
 
 /**
  * Created by AlexVR on 7/2/2018.
@@ -19,7 +20,9 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
-    public int score=0;
+    public int currScore=0;
+    //public static double score=0; 
+    
     public String direction;//is your first name one?
 
     public Player(Handler handler){
@@ -29,16 +32,18 @@ public class Player {
         moveCounter = 0;
         direction= "Right";
         justAte = false;
-        lenght= 1;
-
+        lenght= 2;
+       // score = Math.sqrt(2*myScore+1);
     }
 
-    public void tick(){
+   
+	public void tick(){
         moveCounter++;  
-        if(moveCounter>=8) { //this is where I change the SPEED
+        if(moveCounter>=6) { //this is where I change the SPEED
             checkCollisionAndMove();
-            moveCounter=1; // it was 0 i change it to 1
+            moveCounter=0; // it was 0 i change it to 1
         }
+               	
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){
             direction="Up";
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
@@ -90,7 +95,7 @@ public class Player {
 
         if(handler.getWorld().appleLocation[xCoord][yCoord]){
             Eat();
-           	score++;
+           currScore++;
         }
 
         if(!handler.getWorld().body.isEmpty()) {
@@ -116,9 +121,10 @@ public class Player {
 
             }
         }
+        //draw the score
         g.setColor(Color.WHITE);
         g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
-        g.drawString("Score: "+score, 60, 30);
+        g.drawString("Score: "+Math.sqrt(2*currScore+1), 60, 30);
 
     }
 
@@ -132,21 +138,27 @@ public class Player {
                 if( handler.getWorld().body.isEmpty()){
                     if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount--){
                         tail = new Tail(this.xCoord+1,this.yCoord,handler);
+                        
                     }else{
                         if(this.yCoord!=0){
                             tail = new Tail(this.xCoord,this.yCoord-1,handler);
+                           // moveCounter--;
                         }else{
                             tail =new Tail(this.xCoord,this.yCoord+1,handler);
+                           // moveCounter--;
                         }
                     }
                 }else{
                     if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
                         tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
+                        //moveCounter--;
                     }else{
                         if(handler.getWorld().body.getLast().y!=0){
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
+                          //  moveCounter--;
                         }else{
                             tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
+                            //moveCounter--;
 
                         }
                     }
@@ -157,21 +169,27 @@ public class Player {
                 if( handler.getWorld().body.isEmpty()){
                     if(this.xCoord!=0){
                         tail=new Tail(this.xCoord-1,this.yCoord,handler);
+                       // moveCounter--;
                     }else{
                         if(this.yCoord!=0){
                             tail=new Tail(this.xCoord,this.yCoord-1,handler);
+                         //   moveCounter--;
                         }else{
                             tail=new Tail(this.xCoord,this.yCoord+1,handler);
+                           // moveCounter--;
                         }
                     }
                 }else{
                     if(handler.getWorld().body.getLast().x!=0){
                         tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                        //moveCounter--;
                     }else{
                         if(handler.getWorld().body.getLast().y!=0){
                             tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+                          //  moveCounter--;
                         }else{
                             tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+                            //moveCounter--;
                         }
                     }
 
@@ -181,21 +199,27 @@ public class Player {
                 if( handler.getWorld().body.isEmpty()){
                     if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
                         tail=(new Tail(this.xCoord,this.yCoord+1,handler));
+                       // moveCounter--;
                     }else{
                         if(this.xCoord!=0){
                             tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+                         //   moveCounter--;
                         }else{
                             tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+                           // moveCounter--;
                         }
                     }
                 }else{
                     if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+                       // moveCounter--;
                     }else{
                         if(handler.getWorld().body.getLast().x!=0){
                             tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                         //   moveCounter--;
                         }else{
                             tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+                           // moveCounter--;
                         }
                     }
 
@@ -205,21 +229,27 @@ public class Player {
                 if( handler.getWorld().body.isEmpty()){
                     if(this.yCoord!=0){
                         tail=(new Tail(this.xCoord,this.yCoord-1,handler));
+                        //moveCounter--;
                     }else{
                         if(this.xCoord!=0){
                             tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+                          //  moveCounter--;
                         }else{
                             tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-                        } System.out.println("Tu biscochito");
+                            //moveCounter--;
+                        } //System.out.println("Tu biscochito");
                     }
                 }else{
                     if(handler.getWorld().body.getLast().y!=0){
                         tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+                       // moveCounter--;
                     }else{
                         if(handler.getWorld().body.getLast().x!=0){
                             tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+                         //   moveCounter--;
                         }else{
                             tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+                           // moveCounter--;
                         }
                     }
 
@@ -227,6 +257,7 @@ public class Player {
                 break;
         }
         handler.getWorld().body.addLast(tail);
+        moveCounter--;
         handler.getWorld().playerLocation[tail.x][tail.y] = true;
     }
 

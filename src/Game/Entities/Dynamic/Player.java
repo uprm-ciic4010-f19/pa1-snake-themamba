@@ -15,6 +15,7 @@ public class Player {
 	public int lenght;
 	public boolean justAte;
 	private Handler handler;
+	public int moveCheck;
 
 	public int xCoord;
 	public int yCoord;
@@ -59,7 +60,14 @@ public class Player {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)) {
 			lenght++;
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
-
+		}
+		// Subtract 1
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
+			moveCheck--;
+		}
+		// Adds 1 to moveCheck
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
+			moveCheck++;
 		}
 
 	}

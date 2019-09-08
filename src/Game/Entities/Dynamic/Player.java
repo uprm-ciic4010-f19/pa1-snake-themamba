@@ -20,8 +20,8 @@ public class Player {
     public int yCoord;
 
     public int moveCounter;
-    public int currScore=0;
-    //public static double score=0; 
+    public int currScore;
+    public double score; 
     
     public String direction;//is your first name one?
 
@@ -32,8 +32,9 @@ public class Player {
         moveCounter = 0;
         direction= "Right";
         justAte = false;
-        lenght= 2;
-       // score = Math.sqrt(2*myScore+1);
+        lenght= 1;
+        currScore = 0;
+        score = 0;
     }
 
    
@@ -117,14 +118,17 @@ public class Player {
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
+                   //DRAW THE SCORE
+                    score = Math.sqrt(2*currScore+1);
+                    g.setColor(Color.WHITE);
+                    g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
+                    g.drawString("Score: "+score, 60, 30);
                 }
 
             }
         }
-        //draw the score
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
-        g.drawString("Score: "+Math.sqrt(2*currScore+1), 60, 30);
+      
+        
 
     }
 

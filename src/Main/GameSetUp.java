@@ -23,7 +23,7 @@ import java.io.InputStream;
 
 public class GameSetUp implements Runnable {
     private DisplayScreen display;
-    public  int width, height; //change this
+    public  int width, height; 
     public String title;
 
     private boolean running = false;

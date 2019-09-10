@@ -5,6 +5,8 @@ import Main.Handler;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
+
+import Game.GameStates.State;
 //import java.lang.Math; 
 
 /**
@@ -23,6 +25,7 @@ public class Player {
     public double score; 
     
     public String direction;//is your first name one?
+	private State GameOverState;
     public Player(Handler handler){
         this.handler = handler;
         xCoord = 0;
@@ -37,9 +40,9 @@ public class Player {
 
 	public void tick() {
 		moveCounter++;
-		if (moveCounter >= 6) { // this is where I change the SPEED
+		if (moveCounter >= 8) { // this is where I change the SPEED
 			checkCollisionAndMove();
-			moveCounter = 0; // it was 0 i change it to 1
+			moveCounter = 0; // it was 0 i change it to 1 and then I change it to -- 
 		}
 
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
@@ -67,7 +70,11 @@ public class Player {
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
 			moveCheck++;
 		}
+		//Press the ESC key for the PAUSE menu
+		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
+            State.setState(handler.getGame().pauseState);
 
+		}
 	}
 
 	public void checkCollisionAndMove() {
@@ -116,6 +123,15 @@ public class Player {
 					.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y, handler));
+			
+			//Collision with itself I'm working on it
+		/*	for(int i = 1; i < length; i++) {
+				if(handler.getWorld().playerLocation[xCoord] == handler.getWorld().playerLocation[i]
+				&& handler.getWorld().playerLocation[yCoord] == handler.getWorld().playerLocation[i]) {			
+			 This calls the game over display
+				        State.setState(handler.getGame().gameoverState);
+				}
+			}*/
 		}
 
 	}
@@ -171,7 +187,7 @@ public class Player {
 						// moveCounter--;
 					} else {
 						tail = new Tail(handler.getWorld().body.getLast().x, this.yCoord + 1, handler);
-						// moveCounter--;
+					
 
 					}
 				}

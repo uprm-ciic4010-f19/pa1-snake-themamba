@@ -43,6 +43,7 @@ public class KeyManager implements KeyListener {
 		right = keys[KeyEvent.VK_D];
 
 		pbutt = keys[KeyEvent.VK_ESCAPE];
+	//	death = keys[KeyEvent.VK_SPACE];
 
 	}
 
@@ -51,8 +52,13 @@ public class KeyManager implements KeyListener {
 		if(e.getKeyCode() < 0 || e.getKeyCode() >= keys.length)
 			return;
 		keys[e.getKeyCode()] = true;
+		
+		//Add the restart with the space bar after the game over is called. 
+	/*	if(e.getKeyCode() == KeyEvent.VK_SPACE)
+			return;
+		keys[e.getKeyCode()] = true;*/
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() < 0 || e.getKeyCode() >= keys.length)

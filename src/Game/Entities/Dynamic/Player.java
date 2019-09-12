@@ -21,11 +21,10 @@ public class Player {
 	public int xCoord;
 	public int yCoord;
     public int moveCounter;
-    public int currScore;
+ //   public int currScore;
     public double score; 
     
     public String direction;//is your first name one?
-	private State GameOverState;
     public Player(Handler handler){
         this.handler = handler;
         xCoord = 0;
@@ -33,8 +32,7 @@ public class Player {
         moveCounter = 0;
         direction= "Right";
         justAte = false;
-        lenght= 1;
-        currScore = 0;
+        lenght = 1;
         score = 0;
     }
 
@@ -42,19 +40,19 @@ public class Player {
 		moveCounter++;
 		if (moveCounter >= 8) { // this is where I change the SPEED
 			checkCollisionAndMove();
-			moveCounter = 0; // it was 0 i change it to 1 and then I change it to -- 
+			moveCounter = 0; // it was 0 i change it to ID and then I change it to -- 
 		}
-
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
+		//Backtracking
+		if (direction != "Down" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
 			direction = "Up";
 		}
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)) {
+		if (direction != "Up" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)) {
 			direction = "Down";
 		}
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)) {
+		if (direction != "Right" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)) {
 			direction = "Left";
 		}
-		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)) {
+		if (direction != "Left" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)) {
 			direction = "Right";
 		}
 		// Add piece to tail with N
@@ -62,22 +60,23 @@ public class Player {
 			lenght++;
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
 		}
-		// Subtract 1
+		// Subtract 1 increase the speed
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
 			moveCheck--;
 		}
-		// Adds 1 to moveCheck
+		// Adds 1 to moveCheck sum decrease the speed // bregue aqui y arriba
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
 			moveCheck++;
 		}
 		//Press the ESC key for the PAUSE menu
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
             State.setState(handler.getGame().pauseState);
-
 		}
 	}
 
-	public void checkCollisionAndMove() {
+	public void checkCollisionAndMove() { //CheckColision and Move,
+		// para cada case del movement tienes que incluir 
+		// return si el block de alfrente es true pues poner el game over
 		handler.getWorld().playerLocation[xCoord][yCoord] = false;
 		int x = xCoord;
 		int y = yCoord;
@@ -112,11 +111,19 @@ public class Player {
 			break;
 		}
 		handler.getWorld().playerLocation[xCoord][yCoord] = true;
-
+		
 		if (handler.getWorld().appleLocation[xCoord][yCoord]) {
 			Eat();
-			currScore++;
+		//Added the score formula
+			this.score += Math.sqrt(2 * score + 1);
 		}
+		//Collision with itself 
+		for(int i=0; i < lenght-1; i++) {
+			if (handler.getWorld().body.get(i).x == xCoord
+			&& handler.getWorld().body.get(i).y == yCoord) {
+				State.setState(handler.getGame().gameoverState);
+			}
+		}		
 
 		if (!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body
@@ -124,30 +131,24 @@ public class Player {
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y, handler));
 			
-			//Collision with itself I'm working on it
-		/*	for(int i = 1; i < length; i++) {
-				if(handler.getWorld().playerLocation[xCoord] == handler.getWorld().playerLocation[i]
-				&& handler.getWorld().playerLocation[yCoord] == handler.getWorld().playerLocation[i]) {			
-			 This calls the game over display
-				        State.setState(handler.getGame().gameoverState);
-				}
-			}*/
+			
 		}
-
+		
 	}
 
-	public void render(Graphics g, Boolean[][] playeLocation) {
+	public void render(Graphics g, Boolean[][] playerLocation) {
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 				g.setColor(Color.GREEN);
-				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+				if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
                     g.fillRect((i*handler.getWorld().GridPixelsize),
                             (j*handler.getWorld().GridPixelsize),
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
-                   //DRAW THE SCORE
-                    score = Math.sqrt(2*currScore+1);
+                   
+                    //DRAW THE SCORE
+                    
                     g.setColor(Color.WHITE);
                     g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
                     g.drawString("Score: "+score, 60, 30);
@@ -299,6 +300,7 @@ public class Player {
 
 			}
 		}
+		State.setState(handler.getGame().gameoverState);
 	}
 
 	public boolean isJustAte() {

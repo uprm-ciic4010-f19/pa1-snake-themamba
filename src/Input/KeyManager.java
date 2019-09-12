@@ -12,7 +12,7 @@ public class KeyManager implements KeyListener {
 
 	private boolean[] keys,justPressed,cantPress;
 	public boolean up=false, down=false, left=false, right=false;
-	public boolean pbutt=false;
+	public boolean pbutt=false, rbutt=false;
 
 
 	public KeyManager(){
@@ -43,7 +43,7 @@ public class KeyManager implements KeyListener {
 		right = keys[KeyEvent.VK_D];
 
 		pbutt = keys[KeyEvent.VK_ESCAPE];
-	//	death = keys[KeyEvent.VK_SPACE];
+		rbutt = keys[KeyEvent.VK_SPACE];
 
 	}
 
@@ -52,11 +52,6 @@ public class KeyManager implements KeyListener {
 		if(e.getKeyCode() < 0 || e.getKeyCode() >= keys.length)
 			return;
 		keys[e.getKeyCode()] = true;
-		
-		//Add the restart with the space bar after the game over is called. 
-	/*	if(e.getKeyCode() == KeyEvent.VK_SPACE)
-			return;
-		keys[e.getKeyCode()] = true;*/
 	}
 	
 	@Override

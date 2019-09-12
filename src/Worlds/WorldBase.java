@@ -17,12 +17,11 @@ public abstract class WorldBase {
     //How many pixels are from left to right
     //How many pixels are from top to bottom
     //Must be equal
-    public int GridWidthHeightPixelCount=60; //lo inicie a 60
+    public int GridWidthHeightPixelCount; //lo inicie a 60
 
     //automatically calculated, depends on previous input.
     //The size of each box, the size of each box will be GridPixelsize x GridPixelsize.
     public int GridPixelsize; //grid most be equal to 60X60
-  //  public int score=0;
     
     public Player player;
 

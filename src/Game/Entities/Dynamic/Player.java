@@ -21,7 +21,6 @@ public class Player {
 	public int xCoord;
 	public int yCoord;
     public int moveCounter;
- //   public int currScore;
     public double score; 
     
     public String direction;//is your first name one?
@@ -74,37 +73,36 @@ public class Player {
 		}
 	}
 
-	public void checkCollisionAndMove() { //CheckColision and Move,
-		// para cada case del movement tienes que incluir 
-		// return si el block de alfrente es true pues poner el game over
+	public void checkCollisionAndMove() { 
 		handler.getWorld().playerLocation[xCoord][yCoord] = false;
 		int x = xCoord;
 		int y = yCoord;
 		switch (direction) {
+		//Teleport 
 		case "Left":
-			if (xCoord == 0) { // bregando en esto xCoord==0
-				kill();
+			if (xCoord == 0) { 
+				xCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			} else {
 				xCoord--;
 			}
 			break;
 		case "Right":
 			if (xCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-				kill();
+				xCoord = 0;
 			} else {
 				xCoord++;
 			}
 			break;
 		case "Up":
-			if (yCoord == 0) { // bregando en esto yCoord==0
-				kill();
+			if (yCoord == 0) {
+				yCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			} else {
 				yCoord--;
 			}
 			break;
 		case "Down":
 			if (yCoord == handler.getWorld().GridWidthHeightPixelCount - 1) {
-				kill();
+				yCoord = 0;
 			} else {
 				yCoord++;
 			}
@@ -147,7 +145,7 @@ public class Player {
                             handler.getWorld().GridPixelsize,
                             handler.getWorld().GridPixelsize);
                    
-                    //DRAW THE SCORE
+                    //Draw the score
                     
                     g.setColor(Color.WHITE);
                     g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));

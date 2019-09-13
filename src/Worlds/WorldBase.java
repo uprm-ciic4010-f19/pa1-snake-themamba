@@ -17,11 +17,11 @@ public abstract class WorldBase {
     //How many pixels are from left to right
     //How many pixels are from top to bottom
     //Must be equal
-    public int GridWidthHeightPixelCount; //lo inicie a 60
+    public int GridWidthHeightPixelCount;
 
     //automatically calculated, depends on previous input.
     //The size of each box, the size of each box will be GridPixelsize x GridPixelsize.
-    public int GridPixelsize; //grid most be equal to 60X60
+    public int GridPixelsize; 
     
     public Player player;
 
@@ -47,18 +47,17 @@ public abstract class WorldBase {
     }
     public void tick(){
 
-
+    	
 
     }
 
     public void render(Graphics g){
-
-        for (int i = 0; i <= 800; i = i + GridPixelsize) { //made a new color that is invisible
+    		//Lines go away
+        for (int i = 0; i <= 800; i = i + GridPixelsize) { 
         	Color hide = new Color(0,0,0,0);
             g.setColor(hide);
             g.drawLine(0, i, handler.getWidth() , i);
             g.drawLine(i,0,i,handler.getHeight());
-
         }
         
 

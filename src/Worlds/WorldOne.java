@@ -17,10 +17,10 @@ public class WorldOne extends WorldBase{
         //has to be a number bigger than 20 and even
         //Change the GridWidth from 40 to 60
         GridWidthHeightPixelCount = 60;
-        GridPixelsize = (800/GridWidthHeightPixelCount);
+        GridPixelsize =(800/GridWidthHeightPixelCount);
         playerLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
         appleLocation = new Boolean[GridWidthHeightPixelCount][GridWidthHeightPixelCount];
-
+        
     }
 
     @Override
@@ -47,9 +47,9 @@ public class WorldOne extends WorldBase{
     }
 
     @Override
-    public void render(Graphics g){
+    public void render(Graphics g) {
         super.render(g);
         player.render(g,playerLocation);
-    }
+       }
 
 }

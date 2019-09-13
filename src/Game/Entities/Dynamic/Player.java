@@ -17,7 +17,7 @@ public class Player {
 	public int lenght;
 	public boolean justAte;
 	private Handler handler;
-	public int moveCheck;
+	public int speed;
 	public int xCoord;
 	public int yCoord;
     public int moveCounter;
@@ -37,9 +37,13 @@ public class Player {
 
 	public void tick() {
 		moveCounter++;
-		if (moveCounter >= 8) { // this is where I change the SPEED
-			checkCollisionAndMove();
+		//Speed
+		if (moveCounter > 10) { // this is where I change the SPEED
+			checkCollisionAndMove();				
 			moveCounter = 0; // it was 0 i change it to ID and then I change it to -- 
+		}
+		if(score > 1) {
+			moveCounter += 843165700 + 1; //LAST 4 ID DIGITS 5700
 		}
 		//Backtracking
 		if (direction != "Down" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
@@ -61,11 +65,11 @@ public class Player {
 		}
 		// Subtract 1 increase the speed
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
-			moveCheck--;
+			moveCounter--;
 		}
 		// Adds 1 to moveCheck sum decrease the speed // bregue aqui y arriba
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
-			moveCheck++;
+			moveCounter++;
 		}
 		//Press the ESC key for the PAUSE menu
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
@@ -119,10 +123,11 @@ public class Player {
 		for(int i=0; i < lenght-1; i++) {
 			if (handler.getWorld().body.get(i).x == xCoord
 			&& handler.getWorld().body.get(i).y == yCoord) {
-				State.setState(handler.getGame().gameoverState);
+				kill();
 			}
-		}		
-
+		}
+		
+		
 		if (!handler.getWorld().body.isEmpty()) {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body
 					.getLast().y] = false;
@@ -146,10 +151,9 @@ public class Player {
                             handler.getWorld().GridPixelsize);
                    
                     //Draw the score
-                    
                     g.setColor(Color.WHITE);
                     g.setFont(new Font("arial", Font.CENTER_BASELINE, 20));
-                    g.drawString("Score: "+score, 60, 30);
+                    g.drawString("Score: "+score, 60, 60);
                 }
 
 			}
@@ -166,88 +170,67 @@ public class Player {
 			if (handler.getWorld().body.isEmpty()) {
 				if (this.xCoord != handler.getWorld().GridWidthHeightPixelCount--) {
 					tail = new Tail(this.xCoord + 1, this.yCoord, handler);
-
 				} else {
 					if (this.yCoord != 0) {
 						tail = new Tail(this.xCoord, this.yCoord - 1, handler);
-						// moveCounter--;
 					} else {
 						tail = new Tail(this.xCoord, this.yCoord + 1, handler);
-						// moveCounter--;
 					}
 				}
 			} else {
 				if (handler.getWorld().body.getLast().x != handler.getWorld().GridWidthHeightPixelCount - 1) {
 					tail = new Tail(handler.getWorld().body.getLast().x + 1, this.yCoord, handler);
-					// moveCounter--;
 				} else {
 					if (handler.getWorld().body.getLast().y != 0) {
 						tail = new Tail(handler.getWorld().body.getLast().x, this.yCoord - 1, handler);
-						// moveCounter--;
 					} else {
 						tail = new Tail(handler.getWorld().body.getLast().x, this.yCoord + 1, handler);
-					
-
 					}
 				}
-
 			}
 			break;
 		case "Right":
 			if (handler.getWorld().body.isEmpty()) {
 				if (this.xCoord != 0) {
 					tail = new Tail(this.xCoord - 1, this.yCoord, handler);
-					// moveCounter--;
 				} else {
 					if (this.yCoord != 0) {
 						tail = new Tail(this.xCoord, this.yCoord - 1, handler);
-						// moveCounter--;
 					} else {
 						tail = new Tail(this.xCoord, this.yCoord + 1, handler);
-						// moveCounter--;
 					}
 				}
 			} else {
 				if (handler.getWorld().body.getLast().x != 0) {
 					tail = (new Tail(handler.getWorld().body.getLast().x - 1, this.yCoord, handler));
-					// moveCounter--;
 				} else {
 					if (handler.getWorld().body.getLast().y != 0) {
 						tail = (new Tail(handler.getWorld().body.getLast().x, this.yCoord - 1, handler));
-						// moveCounter--;
 					} else {
-						tail = (new Tail(handler.getWorld().body.getLast().x, this.yCoord + 1, handler));
-						// moveCounter--;
+						tail = (new Tail(handler.getWorld().body.getLast().x, this.yCoord + 1, handler));	
 					}
 				}
-
 			}
 			break;
 		case "Up":
 			if (handler.getWorld().body.isEmpty()) {
 				if (this.yCoord != handler.getWorld().GridWidthHeightPixelCount - 1) {
 					tail = (new Tail(this.xCoord, this.yCoord + 1, handler));
-					// moveCounter--;
 				} else {
 					if (this.xCoord != 0) {
 						tail = (new Tail(this.xCoord - 1, this.yCoord, handler));
-						// moveCounter--;
 					} else {
 						tail = (new Tail(this.xCoord + 1, this.yCoord, handler));
-						// moveCounter--;
 					}
 				}
 			} else {
 				if (handler.getWorld().body.getLast().y != handler.getWorld().GridWidthHeightPixelCount - 1) {
 					tail = (new Tail(handler.getWorld().body.getLast().x, this.yCoord + 1, handler));
-					// moveCounter--;
 				} else {
 					if (handler.getWorld().body.getLast().x != 0) {
 						tail = (new Tail(handler.getWorld().body.getLast().x - 1, this.yCoord, handler));
-						// moveCounter--;
 					} else {
 						tail = (new Tail(handler.getWorld().body.getLast().x + 1, this.yCoord, handler));
-						// moveCounter--;
 					}
 				}
 
@@ -257,36 +240,32 @@ public class Player {
 			if (handler.getWorld().body.isEmpty()) {
 				if (this.yCoord != 0) {
 					tail = (new Tail(this.xCoord, this.yCoord - 1, handler));
-					// moveCounter--;
 				} else {
 					if (this.xCoord != 0) {
 						tail = (new Tail(this.xCoord - 1, this.yCoord, handler));
-						// moveCounter--;
 					} else {
 						tail = (new Tail(this.xCoord + 1, this.yCoord, handler));
-						// moveCounter--;
-					} // System.out.println("Tu biscochito");
+					} // System.out.println("Baby quien tu eres? Tu biscochito");
 				}
 			} else {
 				if (handler.getWorld().body.getLast().y != 0) {
 					tail = (new Tail(handler.getWorld().body.getLast().x, this.yCoord - 1, handler));
-					// moveCounter--;
 				} else {
 					if (handler.getWorld().body.getLast().x != 0) {
 						tail = (new Tail(handler.getWorld().body.getLast().x - 1, this.yCoord, handler));
-						// moveCounter--;
 					} else {
 						tail = (new Tail(handler.getWorld().body.getLast().x + 1, this.yCoord, handler));
-						// moveCounter--;
 					}
 				}
-
 			}
 			break;
 		}
 		handler.getWorld().body.addLast(tail);
-		moveCounter--;
 		handler.getWorld().playerLocation[tail.x][tail.y] = true;
+		if(score > 0) {
+			this.moveCounter = moveCounter + 1;
+		}
+		
 	}
 
 	public void kill() {

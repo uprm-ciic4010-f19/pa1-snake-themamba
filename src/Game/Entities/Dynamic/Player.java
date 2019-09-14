@@ -305,7 +305,7 @@ public class Player {
 				handler.getWorld().appleOnBoard = false; // **
 				
 				//less points
-				score -= (float) Math.sqrt(2 * score + 1);//**
+				score -= (float) Math.sqrt(2 * score + 1)-score;//**
 				if( score < 0) {//**
 					score = 0;//**
 				}

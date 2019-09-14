@@ -302,12 +302,12 @@ public class Player {
 				handler.getWorld().appleOnBoard = false; // **
 				
 				//less points
-				score -= (float) Math.sqrt(2 * score + 1);
-				if( score < 0) {
-					score = 0;
+				score -= (float) Math.sqrt(2 * score + 1);//**
+				if( score < 0) {//**
+					score = 0;//**
 				}
-				Apple.setGood(true);
-				steps = 0;
+				Apple.setGood(true);//**
+				steps = 0;//**
 
 			} else
 				this.kill();// **

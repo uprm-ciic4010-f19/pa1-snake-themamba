@@ -11,6 +11,7 @@ public class Apple {
 
     public int xCoord;
     public int yCoord;
+    public static boolean goodness = true;//**
 
     public Apple(Handler handler,int x, int y){
         this.handler=handler;
@@ -18,5 +19,12 @@ public class Apple {
         this.yCoord=y;
     }
     
+    public static void setGood(boolean state) {//**
+    	goodness = state;
+    }
+    
+    public boolean isGood() {//**
+    	return goodness;
+    }
 
 }

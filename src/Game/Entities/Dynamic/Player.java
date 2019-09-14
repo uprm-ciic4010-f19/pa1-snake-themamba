@@ -159,7 +159,7 @@ public class Player {
 							handler.getWorld().GridPixelsize, handler.getWorld().GridPixelsize);
 				}
 
-				if (steps == handler.getWorld().GridWidthHeightPixelCount) {
+				if (steps == 300) {
 					Apple.setGood(false);
 				}
 				if (Apple.isGood()) {
@@ -184,6 +184,9 @@ public class Player {
 	}
 
 	public void Eat() {
+		Apple.setGood(true);//**
+		steps = 0;//**
+		
 		this.handler.getWorld().getApple();
 		if (Apple.isGood()) {
 
@@ -306,8 +309,6 @@ public class Player {
 				if( score < 0) {//**
 					score = 0;//**
 				}
-				Apple.setGood(true);//**
-				steps = 0;//**
 
 			} else
 				this.kill();// **

@@ -43,7 +43,8 @@ public class Player {
 			moveCounter = 0; // it was 0 i change it to ID and then I change it to -- 
 		}
 		if(score > 1) {
-			moveCounter += 843165700 + 1; //LAST 4 ID DIGITS 5700
+			moveCounter += 5700 + 1; //LAST 4 ID DIGITS 5700
+		
 		}
 		//Backtracking
 		if (direction != "Down" && handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)) {
@@ -63,13 +64,13 @@ public class Player {
 			lenght++;
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord, handler));
 		}
-		// Subtract 1 increase the speed
+		// Increase the speed
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
-			moveCounter--;
+			moveCounter += 5700;
 		}
-		// Adds 1 to moveCheck sum decrease the speed // bregue aqui y arriba
+		// Decrease the speed 
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
-			moveCounter++;
+			moveCounter -= 10;
 		}
 		//Press the ESC key for the PAUSE menu
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {

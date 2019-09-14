@@ -23,7 +23,7 @@ public class Apple {
     	goodness = state;
     }
     
-    public boolean isGood() {//**
+    public boolean isGood() {//***
     	return goodness;
     }
 

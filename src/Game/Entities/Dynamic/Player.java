@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Game.Entities.Static.Apple;
 import Game.GameStates.State;
 //import java.lang.Math; 
 
@@ -22,6 +23,7 @@ public class Player {
 	public int yCoord;
     public int moveCounter;
     public double score; 
+    public int steps;
     
     public String direction;//is your first name one?
     public Player(Handler handler){
@@ -144,12 +146,26 @@ public class Player {
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				g.setColor(Color.GREEN);
-				if(playerLocation[i][j]||handler.getWorld().appleLocation[i][j]){
-                    g.fillRect((i*handler.getWorld().GridPixelsize),
-                            (j*handler.getWorld().GridPixelsize),
-                            handler.getWorld().GridPixelsize,
-                            handler.getWorld().GridPixelsize);
+
+				if (playerLocation[i][j]) {
+					g.setColor(Color.GREEN);
+					g.fillRect((i * handler.getWorld().GridPixelsize), (j * handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize, handler.getWorld().GridPixelsize);
+				}
+
+				if (steps == handler.getWorld().GridWidthHeightPixelCount) {
+					Apple.setGood(false);
+				}
+				if (Apple.isGood()) {
+					g.setColor(Color.red);
+
+				} else {
+					g.setColor(Color.BLACK);
+				}
+
+				if (handler.getWorld().appleLocation[i][j]) {
+					g.fillRect((i * handler.getWorld().GridPixelsize), (j * handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize, handler.getWorld().GridPixelsize);
                    
                     //Draw the score
                     g.setColor(Color.WHITE);

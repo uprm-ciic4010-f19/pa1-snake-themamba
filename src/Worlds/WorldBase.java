@@ -62,5 +62,8 @@ public abstract class WorldBase {
         
 
     }
+	public Apple getApple() {
+		return null;
+	}
 
 }

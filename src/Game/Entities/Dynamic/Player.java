@@ -298,14 +298,13 @@ public class Player {
 			
 			if (lenght > 1) {
 				lenght--; // **
+				score = Math.sqrt((2 * score) + 1);
 				handler.getWorld().body.removeLast();// **
 				handler.getWorld().appleLocation[xCoord][yCoord] = false; // ***
 				handler.getWorld().appleOnBoard = false; // **
+				if(score < 0) {
+					score = 0;
 				
-				//less points
-				score -= (float) Math.sqrt(2 * score + 1);//**
-				if( score < 0) {//**
-					score = 0;//**
 				}
 
 			} else

@@ -294,12 +294,21 @@ public class Player {
 			}
 		} // ***
 		else {// ***
-
-			if (this.lenght > 1) {
+			
+			if (lenght > 1) {
 				lenght--; // **
-				this.handler.getWorld().body.removeLast();// **
+				handler.getWorld().body.removeLast();// **
 				handler.getWorld().appleLocation[xCoord][yCoord] = false; // ***
 				handler.getWorld().appleOnBoard = false; // **
+				
+				//less points
+				score -= (float) Math.sqrt(2 * score + 1);
+				if( score < 0) {
+					score = 0;
+				}
+				Apple.setGood(true);
+				steps = 0;
+
 			} else
 				this.kill();// **
 
